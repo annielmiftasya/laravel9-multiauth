@@ -8,7 +8,6 @@
     <div id="content">
 
         @include('layouts.navbar')
-
         <!-- Begin Page Content -->
         <div class="container-fluid">
             @yield('contentData')
