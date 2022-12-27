@@ -30,6 +30,20 @@ class PostsController extends Controller
         return view('posts.index', $data, compact('categories'));
     }
 
+    public function userInterface(Request $request)
+    {
+        $categories = Category::get();
+        $category = request()->category_id;
+        $data['q'] = $request->query('q');
+        $data['posts'] = Posts::leftJoin('categories', 'posts.category_id', '=', 'categories.id')
+            ->select('posts.*', 'categories.name')
+            ->where('category_id', 'like', '%' . $category . '%')
+            ->where('title', 'like', '%' . $data['q'] . '%')
+            ->paginate(5)
+            ->withQueryString();
+        return view('userInterface', $data, compact('categories'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -96,6 +110,12 @@ class PostsController extends Controller
         return view('posts.show', $data);
     }
 
+    public function detail(Posts $post)
+    {
+        //
+        $data['post'] = $post;
+        return view('posts.detail', $data);
+    }
     /**
      * Show the form for editing the specified resource.
      *

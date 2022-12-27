@@ -38,7 +38,7 @@ class GoogleController extends Controller
 
                 Auth::login($finduser);
 
-                return redirect()->intended('home')->with('success', 'Login Success');
+                return redirect()->route('posts.index')->with('success', 'Login Success');
             } else {
                 $newUser = User::updateOrCreate(['email' => $user->email], [
                     'name' => $user->name,
@@ -48,7 +48,7 @@ class GoogleController extends Controller
 
                 Auth::login($newUser);
 
-                return redirect()->intended('home');
+                return redirect()->route('posts.index');
             }
         } catch (Exception $e) {
             dd($e->getMessage());

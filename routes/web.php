@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\EditPasswordController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\PostsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +17,14 @@ use App\Http\Controllers\Auth\GoogleController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth/login');
-});
+// Route::get('/', function () {
+//     return view('auth/login');
+// });
 
 Auth::routes();
 
+Route::get('/', [PostsController::class, 'userInterface'])->name('userInterface');
+Route::get('/detail/posts/{post}', [PostsController::class, 'detail'])->name('posts.detail');
 Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
