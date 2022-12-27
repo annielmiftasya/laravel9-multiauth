@@ -18,7 +18,6 @@ note :
 -   User : <br/>
     email : admin@gmail.com  <br/>
     password : 123456
--   Googel Account : <br/>
-    password : 123456dummy
+
    
 - halaman login : http://localhost:8000/login
