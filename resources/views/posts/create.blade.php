@@ -11,7 +11,7 @@
                      <!-- category -->
                      <!-- parent_category -->
                      <div class="form-group">
-                        <label for="select_category" class="font-weight-bold">Category</label>
+                        <label for="select_category" class="font-weight-bold">Post</label>
                         <select class="form-control" id="position-option" name="category_id">
                            @foreach ($categories as $category)
                            <option value="{{ $category->id }}">{{ $category->name }}</option>

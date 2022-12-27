@@ -12,6 +12,7 @@
 
       <!-- Blog entries -->
       <div class="w3-col l8 s12">
+
          <!-- Blog entry -->
          @forelse ($posts as $post)
          <div class="w3-card-4 w3-margin w3-white">
@@ -34,13 +35,14 @@
                </div>
             </div>
          </div>
+
          <hr>
+
          @empty
          <p>
             <strong>Data posts empty</strong>
          </p>
          @endforelse
-
          <div class="card-footer">
             {{ $posts->links('vendor.pagination.bootstrap-4') }}
          </div>
@@ -73,12 +75,13 @@
 
          <div class="w3-card w3-margin">
             <div class="w3-col m8 s12 mb-3">
-               <a href="{{route('posts.create',['post' => $post])}}"><button class="w3-button w3-padding-large w3-white w3-border"><b>ADD POST &raquo;</b></button></a>
+               <a href="{{route('posts.create')}}"><button class="w3-button w3-padding-large w3-white w3-border"><b>ADD POST &raquo;</b></button></a>
             </div>
          </div>
          <hr>
 
       </div>
+
    </div><br>
 </div>
 @endsection
