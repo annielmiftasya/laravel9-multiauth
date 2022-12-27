@@ -1,111 +1,84 @@
-@extends('layouts.dashboard')
+@extends('layouts.interface')
 @section('content')
-<!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
+<div class="w3-content" style="max-width:1400px">
+   <!-- Header -->
+   <header class="w3-container w3-center w3-padding-32">
+      <h1><b>MY POST</b></h1>
+      <p>Welcome to the post of <span class="w3-tag">unknown</span></p>
+   </header>
 
-   <!-- Main Content -->
-   <div id="content">
+   <!-- Grid -->
+   <div class="w3-row">
 
+      <!-- Blog entries -->
+      <div class="w3-col l8 s12">
+         <!-- Blog entry -->
+         @forelse ($posts as $post)
+         <div class="w3-card-4 w3-margin w3-white">
+            <img src="/image/{{ $post->image }}" alt="Nature" style="width:100%; height: 300px;">
+            <div class="w3-container mt-3">
+               <h3><b>{{ $post->title }}</b></h3>
+               <h5>Category: {{ $post->name }} </h5>
+            </div>
 
-      <!-- Begin Page Content -->
-      <div class="container-fluid">
-         <div class="row">
-            <div class="col-md-12">
-               @if(session('success'))
-               <p class="alert alert-success">{{ session('success') }}</p>
-               @endif
-               @if(session('error'))
-               <p class="alert alert-danger">{{ session('error') }}</p>
-               @endif
-               @if($errors->any())
-               @foreach($errors->all() as $err)
-               <p class="alert alert-danger">{{ $err }}</p>
-               @endforeach
-               @endif
-               <div class="card">
-                  <div class="card-header">
-                     <div class="row">
-                        <div class="col-md-8">
-                           <div class="col">
-                              <a href="{{ route('posts.create') }}" class="btn btn-primary float-left" role="button">
-                                 Add new
-                                 <i class="fas fa-plus-square"></i>
-                              </a>
-                           </div>
-                           <form class="row">
-                              <div class="col">
-                                 <select class="form-control" id="position-option" name="category_id" placeholder="Choose Category">
-                                    <option value="">Choose Category</option>
-                                    @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                 </select>
-                              </div>
-                              <div class="col">
-                                 <input class="form-control" type="text" name="q" value="{{ $q }}" placeholder="Search here..." />
-                              </div>
-                              <div class="col">
-                                 <button class="btn btn-primary">Search</button>
-                              </div>
-                           </form>
+            <div class="w3-container">
+               <span class="w3-opacity">updated at : {{ $post->created_at }}</span>
+               <p>{{ $post->short_description }}</p>
 
-                        </div>
-                     </div>
+               <div class="w3-row">
+                  <div class="w3-col m8 s12 mb-3">
+                     <a href="{{route('posts.detail',['post' => $post])}}"><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE &raquo;</b></button></a>
                   </div>
-                  <div class="card-body">
-                     <ul class="list-group list-group-flush">
-                        <!-- list post -->
-                        @forelse ($posts as $post)
-                        <div class="card">
-                           <div class="card-body">
-                              <div class="row g-0">
-                                 <div class="col-md-4">
-                                    <img src="/image/{{ $post->image }}" class="img-fluid rounded-start" alt="..." style="width: 350px; height:200px">
-                                 </div>
-                                 <div class="col-md-8">
-                                    <div class="card-body">
-                                       <h5 class="card-title"> {{ $post->title }}</h5>
-                                       <p class="card-text">{{ $post->short_description }}</p>
-                                       <p class="card-text"><small class="text-muted">Category: {{ $post->name }}</small></p>
-                                       <p class="card-text"><small class="text-muted">Last updated {{ $post->created_at }}</small></p>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="float-right">
-                                 <!-- detail -->
-                                 <a href="{{route('posts.detail',['post' => $post])}}" class="btn btn-sm btn-primary" role="button">
-                                    <i class="fas fa-eye"></i>
-                                 </a>
-                              </div>
-                           </div>
-                        </div>
-                        @empty
-                        <p>
-                           <strong>Data posts empty</strong>
-                        </p>
-                        @endforelse
-                     </ul>
-                  </div>
-                  <div class="card-footer">
-                     {{ $posts->links('vendor.pagination.bootstrap-4') }}
+                  <div class="w3-col m4 w3-hide-small">
                   </div>
                </div>
             </div>
          </div>
+         <hr>
+         @empty
+         <p>
+            <strong>Data posts empty</strong>
+         </p>
+         @endforelse
 
+         <div class="card-footer">
+            {{ $posts->links('vendor.pagination.bootstrap-4') }}
+         </div>
+      </div>
+
+      <div class="w3-col l4">
+         <!-- Search Posts -->
+         <div class="w3-card w3-margin">
+            <div class="w3-container w3-padding">
+               <h4>Search Post</h4>
+            </div>
+            <form>
+               <div class="col">
+                  <select class="form-control" id="position-option" name="category_id" placeholder="Choose Category">
+                     <option value="">Choose Category</option>
+                     @foreach ($categories as $category)
+                     <option value="{{ $category->id }}">{{ $category->name }}</option>
+                     @endforeach
+                  </select>
+               </div>
+               <div class="col mt-2">
+                  <input class="form-control" type="text" name="q" value="{{ $q }}" placeholder="Search here..." />
+               </div>
+               <div class="col mt-2">
+                  <button class="btn btn-primary mb-5">Search</button>
+               </div>
+            </form>
+
+         </div>
+
+         <div class="w3-card w3-margin">
+            <div class="w3-col m8 s12 mb-3">
+               <a href="{{route('posts.create',['post' => $post])}}"><button class="w3-button w3-padding-large w3-white w3-border"><b>ADD POST &raquo;</b></button></a>
+            </div>
+         </div>
+         <hr>
 
       </div>
-      <!-- /.container-fluid -->
-
-   </div>
-   <!-- End of Main Content -->
-
-   @include('layouts.footer')
-
+   </div><br>
 </div>
-<!-- End of Content Wrapper -->
-
-</div>
-<!-- End of Page Wrapper -->
-
 @endsection
