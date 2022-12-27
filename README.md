@@ -12,3 +12,13 @@ note :
 -   php artisan db:seed
 -   run on your terminal : <br/>
     php artisan serve; npm run dev;
+-   Admin : <br/>
+    email : admin@gmail.com  <br/>
+    password : 123456
+-   User : <br/>
+    email : admin@gmail.com  <br/>
+    password : 123456
+-   Googel Account : <br/>
+    password : 123456dummy
+   
+- halaman login : http://localhost:8000/login
